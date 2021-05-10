@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+      <!--
+        The png files for the cards were gotten from;
+        1- Freepik heart
+        2- Kiranshastry club
+        3- Smashicons
+
+        inspirations for the buttons were from w3schools.
+      -->
+
+        <div class="container">
+
+            <div id="header">
+              <h1>
+                  Blackjack
+              </h1>
+            </div>
+
+            <div id="bottons">
+              <button class="button button4" id='start'>Start</button>
+              <button class="button button4" id="hit">Hit</button>
+              <button class="button button4" id="stand">Stand</button>
+            </div>
+
+            <hr />
+
+            <div class="cardsRack">
+              <div class="default" id="human">
+                <p class="valueP">
+                  Player 1 | Hand value: <span id="handValueP1">0</span>
+                </p>
+              </div>
+
+              <div class="default" id="computer">
+                <p class="valueP" >
+                  Computer | Hand value: <span id="handValueC">0</span>
+                </p>
+              </div>
+            </div>
+
+            <p id="feedback">Welcome! Click on the Start button to start the game<br />
+              <b>Rules:</b><br />
+              - Red border color signifies player took a "stand". <br />
+              - Black bold border color signifies player turn. <br />
+              - Cards J, Q, K all have values of 10 each. <br />
+              - Ace value is 11, but will be reduced to 1, only if the total card value
+               would exceed 21. <br />
+              - All other cards have values equal to the respective card number. <br />
+              - You only play against computer. <br />
+              - The players that gets a total value of 21 wins (Blackjack).<br />
+              - First player to exceed 21 (busts) in total card value loses the game.<br />
+              - The player that gets the highest values without exceed 21 wins.
+            </p>
+
+            <p id="feedback1"></p>
+
+            </div>
+
+        <script src="index.js" async defer></script>
+
+  </body>
+</html>
