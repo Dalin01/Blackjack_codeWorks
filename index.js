@@ -102,6 +102,7 @@ function initialise(){
   $("#feedback").text("Game stopped. Click on Start to play again.");
   $("#feedback1").text("");
   $("#feedback1").css("backgroundColor", "");
+  $("#feedback1").css("color", "brown");
   $("#hit").prop("disabled", false);
   $("#stand").prop("disabled", false);
 
@@ -142,16 +143,19 @@ function checkWinner(currentPlayer) {
       endGame("Excellent! Blackjack. Player 1", "Wins");
     }
     else if ($("#human").css("border-color") == "rgb(255, 0, 0)" && $("#computer").css("border-color") == "rgb(255, 0, 0)") {
-
-      if ($("#handValueP1").text() > $("#handValueC").text()) {
+      if ($("#handValueP1").text() === 21){
         endGame("Player 1", "Wins");
-        status = "lost";
+        status = "";
+      }
+      else if ($("#handValueP1").text() > $("#handValueC").text()) {
+        endGame("Player 1", "Wins");
+        status = "";
       } else if ($("#handValueP1").text() === $("#handValueC").text()) {
         endGame("Player 1", "Drew");
         status = "draw";
       } else {
         endGame("Player 1", "Lost");
-        status = "";
+        status = "lost";
       }
     }
   } else {
@@ -163,12 +167,13 @@ function checkWinner(currentPlayer) {
       endGame("Excellent! Blackjack. Computer", "Wins");
     }
     else if ($("#human").css("border-color") === "rgb(255, 0, 0)" && $("#computer").css("border-color") === "rgb(255, 0, 0)") {
-      if ($("#handValueP1").text() < $("#handValueC").text()) {
-        console.log($("#handValueP1").text());
-        console.log($("#handValueC").text());
+      if ($("#handValueC") === 21){
         endGame("Computer", "Wins");
-        status = "lost";
-      }  else if ($("#handValueP1").text() === $("#handValueC").text()) {
+        status = "";
+      } else if ($("#handValueP1").text() < $("#handValueC").text()) {
+        endGame("Computer", "Wins");
+        status = "";
+      } else if ($("#handValueP1").text() === $("#handValueC").text()) {
         endGame("Computer", "Drew");
         status = "draw";
       } else {
@@ -226,7 +231,7 @@ function createNewDeck() {
 
     $("#start").text("Start");
     $("#handValueP1").text(0);
-    $("handValueC").text(0);
+    $("#handValueC").text(0);
 
     $("div").remove(".column");
 
@@ -258,7 +263,7 @@ function hit(repeat = "") {
     checkAce("c");
     let status = checkWinner("c");
 
-    if (repeat == "") {
+    if (repeat == "no recursion") {
       $("#computer").removeClass($("#computer").attr("class"));
       $("#computer").addClass("default");
 
@@ -311,33 +316,33 @@ function computerPlay(recursion) {
     for (var i = 0; i < 5; i++){
       if(game != 1){
         $("#feedback1").text("Computer's turn. Please wait...");
-        getComputerPlay(computerMove);
+        getComputerPlay(computerMove, "recursion");
       } else {
         break;
       }
     }
   } else {
     $("#feedback1").text("Computer's turn. Please wait...");
-    getComputerPlay(computerMove);
+    getComputerPlay(computerMove, "no recursion");
   }
 }
 
-function getComputerPlay(callBack) {
+function getComputerPlay(callBack, recursion) {
     //let timer = setTimeout(function () {
       //  var number = Math.floor(Math.random() * 2) + 1;
         //callBack(number);
     //}, 2000);
 
     var number = Math.floor(Math.random() * 2) + 1;
-    callBack(number);
+    callBack(number, recursion);
 }
 
-function computerMove(decision) {
+function computerMove(decision, recursion) {
 
     if (decision === 1)  { // hit
-      hit("*");
+      hit(recursion);
     } else { // stand
-      stand("*");
+      stand(recursion);
     }
 
     if (game != 1){
